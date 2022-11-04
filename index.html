@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Display a map on a webpage</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v1.13.2/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.13.2/mapbox-gl.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="controller">
+        <div id="menu">
+            <!-- <input id="satellite-v9" type="radio" name="rtoggle" value="satellite" checked="checked"> -->
+            <!-- See a list of Mapbox-hosted public styles at -->
+            <!-- https://docs.mapbox.com/api/maps/styles/#mapbox-styles -->
+            <!-- <label for="satellite-v9">satellite</label>
+            <input id="light-v10" type="radio" name="rtoggle" value="light">
+            <label for="light-v10">light</label>
+            <input id="dark-v10" type="radio" name="rtoggle" value="dark">
+            <label for="dark-v10">dark</label>
+            <input id="streets-v11" type="radio" name="rtoggle" value="streets">
+            <label for="streets-v11">streets</label>
+            <input id="outdoors-v11" type="radio" name="rtoggle" value="outdoors">
+            <label for="outdoors-v11">outdoors</label> -->
+            <select class="selectpicker" id="mapbox-style" data-live-search="true" onchange="selectMapboxStyle()">
+                <option id="outdoors-v11" value="outdoors">outdoors</option>
+                <option id="satellite-v9" value="satellite">sattelite</option>
+                <option id="light-v10" value="light">light</option>
+                <option id="dark-v10" value="dark">dark</option>
+                <option id="streets-v11" value="streets">streets</option>
+            </select>
+            <br>
+            <br>
+            <!-- <h3>Layer</h3>
+            <select id="mapbox-layer" class="selectpicker" multiple data-live-search="true" onchange="toggleLayer(this)">
+                <option value="airport" id="airport">airport</option>
+                <option value="points" id="points">points</option>
+            </select> -->
+            <div class="map-overlay top">
+                <div class="map-overlay-inner">
+                    <label>Layer opacity: <span id="slider-value">100%</span></label>
+                    <input id="slider" type="range" min="0" max="100" step="0" value="100">
+                </div>
+            </div>
+            <h3>Layer</h3>
+            <div class="dropdown">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                  Layer Toggle
+                </button>
+                <ul class="dropdown-menu" id="mapbox-layer">
+                </ul>
+            </div>
+            <br>
+            <div class="form-group">
+                <h3>Name</h3>
+                <input type="text" id="name">
+                <h3>Content (JSON)</h3>
+                <textarea class="form-control" name="content" id="content" rows="6" placeholder=''></textarea>
+            </div>
+            <button onclick="importData()">Apply</button>
+            <br>
+            <br>
+            <div class="dropdown">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                  Source Toggle
+                </button>
+                <ul class="dropdown-menu" id="mapbox-source">
+                    <!-- <a href="#" data-toggle="modal" data-target="#myModal">hehe</a> -->
+                </ul>
+            </div>
+            <div class="modal" id="myModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="sourceName"></h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="layerName">Layer Name</label>
+                                <input type="text" class="form-control" id="layerName">
+                            </div>
+                            <div class="form-group">
+                                <label for="layerType">Type</label>
+                                <select class="form-control" name="layerType" id="layerType">
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="layerPaintColor">Color</label>
+                                <input type="text" class="form-control" id="layerPaintColor">
+                            </div>
+                            <div class="form-group">
+                                <label for="layerPaintOpacity">Opacity</label>
+                                <input type="text" class="form-control" id="layerPaintOpacity">
+                            </div>
+                            <div class="form-group">
+                                <label for="layerPaintWidth">Width</label>
+                                <input type="text" class="form-control" id="layerPaintWidth">
+                            </div>
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" data-dismiss="modal" onclick="addCustomLayer()">Apply</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <ul class="list-group" id="layerList">
+            </ul>
+        </div>
+    </div>
+    <div id="map"></div>
+
+    <script src="./script.js"></script>
+</body>
+
+</html>
